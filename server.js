@@ -5,26 +5,29 @@ const cors = require("cors");
 
 const app = express();
 const server = http.createServer(app);
-const io = socketIo(server);
+const io = socketIo(server, {
+  cors: {
+    origin: "http://localhost:3000", // Allow your React app to connect
+    methods: ["GET", "POST"],
+  },
+});
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "http://localhost:3000", // Allow your React app to connect
     methods: ["GET", "POST"],
   })
 );
 
-app.use(express.static("public"));
-
 io.on("connection", (socket) => {
-  console.log("user connected");
-  socket.on("message", (data) => {
-    console.log("Message, recieved from client: ", data);
-    socket.broadcast.emit("message", data);
+  console.log(`User connected`);
+
+  socket.on("send-changes", (data) => {
+    socket.broadcast.emit("recieve-changes", data);
   });
 
   socket.on("disconnect", () => {
-    console.log("User disconnect");
+    console.log("User disconnected");
   });
 });
 

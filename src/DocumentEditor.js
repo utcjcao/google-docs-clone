@@ -34,7 +34,11 @@ function DocumentEditor() {
     });
 
     return () => {
-      socket.disconnect();
+      // socket.disconnect();
+      if (socket.readyState === 1) {
+        // <-- This is important
+        socket.disconnect();
+      }
     };
   }, []);
 
