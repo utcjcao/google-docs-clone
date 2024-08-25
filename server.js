@@ -12,13 +12,6 @@ const io = socketIo(server, {
   },
 });
 
-app.use(
-  cors({
-    origin: "http://localhost:3000", // Allow your React app to connect
-    methods: ["GET", "POST"],
-  })
-);
-
 io.on("connection", (socket) => {
   console.log(`User connected`);
 

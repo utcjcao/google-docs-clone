@@ -5,7 +5,6 @@ import DocumentEditor from "./DocumentEditor";
 function App() {
   return (
     <div>
-      Google Doc
       <DocumentEditor></DocumentEditor>
     </div>
   );
