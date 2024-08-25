@@ -3,6 +3,18 @@ import Quill from "quill";
 import "quill/dist/quill.snow.css";
 import io from "socket.io-client";
 
+const TOOLBAR_OPTIONS = [
+  [{ header: [1, 2, 3, 4, 5, 6, false] }],
+  [{ font: [] }],
+  [{ list: "ordered" }, { list: "bullet" }],
+  ["bold", "italic", "underline"],
+  [{ color: [] }, { background: [] }],
+  [{ script: "sub" }, { script: "super" }],
+  [{ align: [] }],
+  ["image", "blockquote", "code-block"],
+  ["clean"],
+];
+
 function DocumentEditor() {
   const [quill, setQuill] = useState();
   const [socket, setSocket] = useState();
@@ -25,6 +37,7 @@ function DocumentEditor() {
     wrapper.append(editor);
     const q = new Quill(editor, {
       theme: "snow",
+      module: TOOLBAR_OPTIONS,
     });
     setQuill(q);
   }, []);
@@ -42,7 +55,7 @@ function DocumentEditor() {
     return () => {
       socket.off("receive-changes", handler);
     };
-  }, [socket]);
+  }, [socket, quill]);
 
   // if i make a change to my quill (content), then i emit the change
   useEffect(() => {
@@ -59,7 +72,7 @@ function DocumentEditor() {
     };
   }, [socket, quill]);
 
-  return <div className="container" ref={wrapperRef}></div>;
+  return <div className="editor-container" ref={wrapperRef}></div>;
 }
 
 export default DocumentEditor;

@@ -1,0 +1,31 @@
+html, body {
+    overflow: hidden; /* Hide scroll bars */
+    margin: 0; /* Optional: Remove default margin */
+    padding: 0; /* Optional: Remove default padding */
+    height: 100%; /* Ensure the height covers the full viewport */
+  }
+
+.container {
+    display: flex;
+    box-sizing: border-box;
+    justify-content: space-between;
+    .sidebar-container {
+        overflow-y: auto;
+        width: 30%;
+        height:100vh;
+        .document {
+            padding: 10px;
+            border-radius: 10px;
+            margin: 10px;
+            border: 2px solid grey;
+        }
+    }
+    .editor-container {
+        overflow: hidden;
+        padding: 10px;    
+        margin: 10px;
+        width:70%;
+        height: 90vh;
+    }
+
+}
